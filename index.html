@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <meta name="theme-color" content="#2b2b2b">
+<meta name="description" content="Uova fresche di galline livornesi bianche e galletti moroseta. Piccola azienda di Casargo, Valsassina. Consegna a domicilio.">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fazzini Pollami">
@@ -25,7 +26,7 @@ a{color:inherit}button,input,select,textarea{font:inherit}
 :focus-visible{outline:3px solid var(--sky);outline-offset:2px}
 h1,h2,h3{font-family:var(--script);font-weight:400;line-height:1.1;margin:0}
 header{position:sticky;top:0;z-index:4;background:var(--coal);color:var(--butter);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 6%;padding-top:calc(10px + env(safe-area-inset-top,0px));border-bottom:3px double var(--butter)}
-.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand img{width:52px;height:52px;border-radius:50%}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand img{width:52px;height:52px;border-radius:50%;object-fit:cover}
 .brand b{font:400 27px var(--script);display:block;line-height:1}.brand small{font:300 12px var(--cond);letter-spacing:.2em;color:var(--sky)}
 nav{display:flex;gap:26px;font:400 15px var(--cond);letter-spacing:.06em}nav a{text-decoration:none;color:var(--butter)}nav a:hover{color:var(--sky)}
 .cartbtn{border:1.5px solid var(--butter);background:none;color:var(--butter);padding:8px 16px;border-radius:30px;cursor:pointer;font:400 15px var(--cond);letter-spacing:.05em}
@@ -46,9 +47,9 @@ section{padding:70px 6%}
 .flock{background:var(--coal);color:var(--butter)}.flock .head p{color:#d8d3bb}.flock .head:after{border-color:var(--butter)}
 .birds{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:auto}
 .bird{border:2px solid var(--butter);border-radius:200px 200px 8px 8px;padding:34px 24px 28px;text-align:center;background:var(--deep)}
-.face{width:104px;height:104px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;border:3px solid var(--sky);overflow:hidden}
-.face img{width:100%;height:100%;object-fit:cover;display:block}
-.f1{background:#f4f1e8}.f2{background:#fff}.f3{background:#111}
+.face{width:112px;height:112px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;border:3px solid var(--sky);overflow:hidden;background:#111}
+.face img{width:100%;height:100%;object-fit:cover;object-position:center 30%;display:block}
+.f1 img{object-position:center 40%}.f2 img{object-position:center 25%}.f3 img{object-position:center 20%}
 .bird h3{font-size:34px}.bird small{font:300 13px var(--cond);letter-spacing:.15em;color:var(--sky)}.bird p{font-size:15px;color:#d8d3bb;margin:10px 0 0}
 .story{background:var(--kraft);display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:none}
 .story .bigq{font:clamp(44px,6vw,70px)/1.05 var(--script);color:var(--coal)}.story p{color:#4d4a3d;max-width:520px}
@@ -92,9 +93,9 @@ footer a{color:var(--sky);text-decoration:underline}footer a:hover{color:var(--b
  <section class="flock" id="galline">
   <div class="head"><h2>Chi fa le uova</h2><p>Un pollaio piccolo, che conosciamo uno per uno.</p></div>
   <div class="birds">
-   <div class="bird"><div class="face f1"><img src="livornesi-bianche.jpg" alt="Livornesi bianche"></div><h3>Livornesi bianche</h3><small>LE GALLINE</small><p>Le nostre ovaiole: vivaci, eleganti, sempre in movimento.</p></div>
-   <div class="bird"><div class="face f2"><img src="moroseta-bianco.jpg" alt="Moroseta bianco"></div><h3>Moroseta bianco</h3><small>IL GALLETTO</small><p>Piccolo di taglia, grande di carattere. Veglia sul pollaio.</p></div>
-   <div class="bird"><div class="face f3"><img src="moroseta-nero.jpg" alt="Moroseta nero"></div><h3>Moroseta nero</h3><small>IL GALLETTO</small><p>Il secondo guardiano: scuro, fiero e sempre in posa.</p></div>
+   <div class="bird"><div class="face f1"><img src="livornesi-bianche.jpg" alt="Livornesi bianche" loading="lazy"></div><h3>Livornesi bianche</h3><small>LE GALLINE</small><p>Le nostre ovaiole: vivaci, eleganti, sempre in movimento.</p></div>
+   <div class="bird"><div class="face f2"><img src="moroseta-bianco.jpg" alt="Moroseta bianco" loading="lazy"></div><h3>Moroseta bianco</h3><small>IL GALLETTO</small><p>Piccolo di taglia, grande di carattere. Veglia sul pollaio.</p></div>
+   <div class="bird"><div class="face f3"><img src="moroseta-nero.jpg" alt="Moroseta nero" loading="lazy"></div><h3>Moroseta nero</h3><small>IL GALLETTO</small><p>Il secondo guardiano: scuro, fiero e sempre in posa.</p></div>
   </div>
  </section>
  <section class="story" id="azienda">
@@ -138,9 +139,10 @@ function togglePayPalQR(){
 function revealContacts(e){
   e.preventDefault();
   const box = document.getElementById('contact-box');
+  const num = WA.replace(/(\d{3})(\d{3})(\d{4})/,'$1 $2 $3');
   box.innerHTML = 
     'E-mail: <a href="mailto:'+EMAIL+'">'+EMAIL+'</a><br>' +
-    'WhatsApp: <a href="#" onclick="return openWhatsApp(event)">'+WA.replace(/(\d{3})(\d{3})(\d{4})/,'$1 $2 $3')+'</a>';
+    'WhatsApp: <a href="#" onclick="return openWhatsApp(event)">'+num+'</a>';
   return false;
 }
 function openWhatsApp(e){
@@ -154,7 +156,7 @@ const euro=n=>n.toFixed(2).replace('.',',')+' €';
 const total=()=>cart.reduce((t,q,i)=>t+q*products[i].eggs*0.5,0);
 function update(){document.getElementById('count').textContent=cart.reduce((a,b)=>a+b,0)}
 function add(i){cart[i]++;update()}
-function openCart(){document.getElementById('cartModal').classList.add('open');render()}
+function openCart(){document.getElementById('cartModal').classList.add('open');render();togglePayPalQR()}
 function closeCart(){document.getElementById('cartModal').classList.remove('open')}
 function render(){let rows=cart.map((q,i)=>q?`<div class="line"><span>${products[i].name}</span><span class="qty"><button onclick="change(${i},-1)">−</button> ${q} <button onclick="change(${i},1)">+</button></span></div>`:'').join('');document.getElementById('items').innerHTML=rows||'<div class="empty">Il carrello è vuoto. Aggiungi una confezione dal negozio.</div>';document.getElementById('total').innerHTML=total()?`<span>Totale</span><span>${euro(total())}</span>`:''}
 function change(i,n){cart[i]=Math.max(0,cart[i]+n);update();render()}
@@ -178,9 +180,9 @@ function sendOrder(){
   // Messaggio di conferma
   let msg='';
   if(pp){
-    msg+='<p class="note"><strong>Hai scelto PayPal.</strong> Scansiona il QR code qui sopra con l’app PayPal o con la fotocamera del telefono per completare il pagamento.</p>';
+    msg+='<p class="note"><strong>Hai scelto PayPal.</strong> Scansiona il QR code qui sopra con l\u2019app PayPal o con la fotocamera del telefono per completare il pagamento.</p>';
   }
-  msg+='<p class="note">Si è aperta la tua app di posta con l’ordine pronto. Controlla che nel campo “A” compaia l’indirizzo corretto. Se non si apre, copia i dati qui sotto e inviali manualmente.</p>';
+  msg+='<p class="note">Si \u00e8 aperta la tua app di posta con l\u2019ordine pronto. Controlla che nel campo \u201cA\u201d compaia l\u2019indirizzo corretto. Se non si apre, copia i dati qui sotto e inviali manualmente.</p>';
   msg+='<textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>';
   box.innerHTML=msg;
 }
