@@ -1,0 +1,154 @@
+
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Fazzini Pollami - Uova fresche</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#f7f2e5;color:#293b30;font-family:Georgia,serif}
+header{text-align:center;padding:30px 15px;background:#f1e5c5}
+.logo{font-size:48px}
+h1{font-size:36px;color:#355b43;margin:5px}
+header p{font-style:italic}
+main{max-width:850px;margin:auto;padding:20px}
+.intro{text-align:center;margin:20px 0 30px}
+.products{display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:15px}
+.card,.order{background:white;border-radius:15px;padding:20px;text-align:center;box-shadow:0 3px 12px #0001}
+.egg{font-size:38px}
+h2{color:#355b43}
+.price{font:bold 24px Arial;color:#355b43}
+button{background:#355b43;color:white;border:0;border-radius:25px;padding:13px 20px;font-weight:bold;cursor:pointer;margin:8px}
+.order{text-align:left;margin-top:25px}
+label{display:block;margin:15px 0 5px;font-family:Arial}
+input,select{width:100%;padding:12px;border:1px solid #ccc;border-radius:8px;font-size:16px}
+.line{display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid #eee;font-family:Arial}
+.total{font-size:22px;font-weight:bold;text-align:right;margin-top:15px}
+footer{text-align:center;padding:25px;color:#777;font:13px Arial}
+</style>
+</head>
+<body>
+<header>
+<div class="logo">🐓</div>
+<h1>Fazzini Pollami</h1>
+<p>Uova fresche, dalla nostra azienda alla tua tavola</p>
+</header>
+
+<main>
+<div class="intro">
+<h2>Le nostre uova fresche</h2>
+<p>La bontà genuina della Valsassina.<br>
+<strong>50 centesimi per ogni uovo.</strong></p>
+</div>
+
+<div class="products">
+<div class="card">
+<div class="egg">🥚</div>
+<h2>6 uova</h2>
+<p>Confezione da sei</p>
+<div class="price">3,00 €</div>
+<button onclick="add(6)">Aggiungi</button>
+</div>
+
+<div class="card">
+<div class="egg">🥚🥚</div>
+<h2>10 uova</h2>
+<p>Confezione da dieci</p>
+<div class="price">5,00 €</div>
+<button onclick="add(10)">Aggiungi</button>
+</div>
+
+<div class="card">
+<div class="egg">🥚🥚🥚</div>
+<h2>12 uova</h2>
+<p>Confezione da dodici</p>
+<div class="price">6,00 €</div>
+<button onclick="add(12)">Aggiungi</button>
+</div>
+</div>
+
+<div class="order">
+<h2>Il tuo carrello</h2>
+<div id="cart">Nessun prodotto selezionato</div>
+
+<label>Consegna o ritiro?</label>
+<select id="delivery">
+<option>Ritiro presso l'azienda</option>
+<option>Consegna a domicilio - Casargo e dintorni</option>
+</select>
+
+<label>Nome e cognome</label>
+<input id="name" placeholder="Il tuo nome">
+
+<label>Telefono</label>
+<input id="phone" type="tel" placeholder="Il tuo numero">
+
+<label>Indirizzo (solo per consegna)</label>
+<input id="address" placeholder="Via e località">
+
+<button onclick="sendOrder()">Prepara il mio ordine</button>
+<p id="message" style="font:14px Arial;color:#355b43"></p>
+</div>
+</main>
+
+<footer>
+Fazzini Pollami · Uova fresche · Valsassina
+</footer>
+
+<script>
+let cart={6:0,10:0,12:0};
+
+function add(n){
+cart[n]++;
+render();
+}
+
+function render(){
+let total=0;
+let html="";
+for(let n of [6,10,12]){
+if(cart[n]>0){
+let price=n*0.5*cart[n];
+total+=price;
+html+=`<div class="line">
+<span>${n} uova × ${cart[n]}</span>
+<strong>€ ${price.toFixed(2)}</strong>
+</div>`;
+}
+}
+if(total===0) html="Nessun prodotto selezionato";
+else html+=`<div class="total">Totale: € ${total.toFixed(2)}</div>`;
+document.getElementById("cart").innerHTML=html;
+}
+
+function sendOrder(){
+let total=0;
+let lines=[];
+for(let n of [6,10,12]){
+if(cart[n]>0){
+let p=n*0.5*cart[n];
+total+=p;
+lines.push(n+" uova x "+cart[n]+" = € "+p.toFixed(2));
+}
+}
+if(total===0){
+document.getElementById("message").innerText="Aggiungi prima una confezione.";
+return;
+}
+let text="ORDINE FAZZINI POLLAMI\n"+lines.join("\n")+
+"\nTotale: € "+total.toFixed(2)+
+"\nModalità: "+document.getElementById("delivery").value+
+"\nNome: "+document.getElementById("name").value+
+"\nTelefono: "+document.getElementById("phone").value+
+"\nIndirizzo: "+document.getElementById("address").value;
+if(navigator.share){
+navigator.share({title:"Ordine Fazzini Pollami",text:text});
+}else{
+navigator.clipboard.writeText(text);
+document.getElementById("message").innerText="Ordine copiato!";
+}
+}
+</script>
+</body>
+</html>
