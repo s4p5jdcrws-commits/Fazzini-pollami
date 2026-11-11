@@ -125,16 +125,22 @@ footer a{color:var(--sky);text-decoration:underline}footer a:hover{color:var(--b
   <p>I tuoi dati vengono usati solo per evadere l’ordine e per contattarti riguardo alla consegna. Nessuna profilazione, nessuna newsletter automatica.</p>
  </div>
 </footer>
-<div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento" onchange="togglePayPalQR()"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div id="paypal-qr-box" style="display:none;text-align:center;margin:16px 0 8px"><p style="margin:0 0 10px;font-size:15px;color:var(--muted)">Scansiona il QR con l’app PayPal o la fotocamera del telefono:</p><img src="paypal-qr.jpg" alt="QR Code PayPal" style="width:220px;height:220px;border-radius:8px;border:1px solid #ddd"></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal scansionando il QR code. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
+<div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento" onchange="togglePayPalQR()"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div id="paypal-qr-box" style="display:none;text-align:center;margin:18px 0;padding:16px;background:#fff;border:2px dashed var(--sky);border-radius:8px"><p style="margin:0 0 12px;font-size:15px;color:var(--coal);font-weight:600">Paga con PayPal — scansiona il QR:</p><img src="paypal-qr.jpg" alt="QR Code PayPal" width="220" height="220" style="width:220px;height:220px;border-radius:8px;display:block;margin:0 auto" onerror="this.style.display='none';this.nextElementSibling.style.display='block'"><p style="display:none;color:#c00;margin:10px 0 0">Immagine QR non trovata. Carica il file paypal-qr.jpg nella stessa cartella del sito.</p></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal scansionando il QR code. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
 <script>
 // Dati obfuscati per ridurre scraping / spam
 const EMAIL = ["Marco","fazzini","@","me.com"].join("");
 const WA = ["3","47","57","92","916"].join(""); // WhatsApp
 
 function togglePayPalQR(){
-  const show = document.getElementById('payment').value === 'PayPal';
-  document.getElementById('paypal-qr-box').style.display = show ? 'block' : 'none';
+  var sel = document.getElementById('payment');
+  var box = document.getElementById('paypal-qr-box');
+  if(!sel || !box) return;
+  box.style.display = (sel.value === 'PayPal') ? 'block' : 'none';
 }
+document.addEventListener('DOMContentLoaded', function(){
+  var sel = document.getElementById('payment');
+  if(sel) sel.addEventListener('change', togglePayPalQR);
+});
 
 function revealContacts(e){
   e.preventDefault();
