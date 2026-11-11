@@ -110,13 +110,34 @@ function openCart(){document.getElementById('cartModal').classList.add('open');r
 function closeCart(){document.getElementById('cartModal').classList.remove('open')}
 function render(){let rows=cart.map((q,i)=>q?`<div class="line"><span>${products[i].name}</span><span class="qty"><button onclick="change(${i},-1)">−</button> ${q} <button onclick="change(${i},1)">+</button></span></div>`:'').join('');document.getElementById('items').innerHTML=rows||'<div class="empty">Il carrello è vuoto. Aggiungi una confezione dal negozio.</div>';document.getElementById('total').innerHTML=total()?`<span>Totale</span><span>${euro(total())}</span>`:''}
 function change(i,n){cart[i]=Math.max(0,cart[i]+n);update();render()}
-function sendOrder(){const v=id=>document.getElementById(id).value.trim();const box=document.getElementById('result');
-let lines=cart.map((q,i)=>q?`- ${q} x ${products[i].name} (${euro(q*products[i].eggs*0.5)})`:null).filter(Boolean);
-if(!lines.length){box.innerHTML='<p class="note">Aggiungi almeno una confezione al carrello.</p>';return}
-if(!v('name')||!v('phone')||!v('address')||!v('city')){box.innerHTML='<p class="note">Compila nome, telefono, indirizzo e comune per poter inviare l’ordine.</p>';return}
-const pp=v('payment')==='PayPal';const body=`Nuovo ordine dal sito Fazzini Pollami\n\n${lines.join('\n')}\n\nTotale: ${euro(total())}\nPagamento: ${v('payment')==='PayPal'?'PayPal (da attivare — mandare le istruzioni al cliente)':'Alla consegna'}\n\nNome: ${v('name')}\nTelefono: ${v('phone')}\nIndirizzo: ${v('address')}, ${v('city')}\nNote: ${v('extra')||'nessuna'}${pp&&PAYPAL?'\n\nPagamento PayPal: '+PAYPAL+'/'+total().toFixed(2):''}`;
-location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Nuovo ordine - '+v('name'))}&body=${encodeURIComponent(body)}`;
-box.innerHTML=(pp?'<p class="note">Hai scelto PayPal (ancora da attivare): dopo l’invio ti scriviamo le istruzioni per pagare.'+(PAYPAL?' Puoi anche pagare subito qui: <a href="'+PAYPAL+'/'+total().toFixed(2)+'">paga '+euro(total())+' con PayPal</a>.':'')+'</p>':'')+'<p class="note">Si è aperta la tua app di posta con l’ordine pronto. Se non si apre, scrivici a '+EMAIL+' con questi dati:</p><textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>'}
+function sendOrder(){
+  const v=id=>document.getElementById(id).value.trim();
+  const box=document.getElementById('result');
+  let lines=cart.map((q,i)=>q?`- ${q} x ${products[i].name} (${euro(q*products[i].eggs*0.5)})`:null).filter(Boolean);
+  if(!lines.length){box.innerHTML='<p class="note">Aggiungi almeno una confezione al carrello.</p>';return}
+  if(!v('name')||!v('phone')||!v('address')||!v('city')){box.innerHTML='<p class="note">Compila nome, telefono, indirizzo e comune per poter inviare l’ordine.</p>';return}
+  const pp=v('payment')==='PayPal';
+  const body=`Nuovo ordine dal sito Fazzini Pollami\n\n${lines.join('\n')}\n\nTotale: ${euro(total())}\nPagamento: ${v('payment')==='PayPal'?'PayPal (da attivare — mandare le istruzioni al cliente)':'Alla consegna'}\n\nNome: ${v('name')}\nTelefono: ${v('phone')}\nIndirizzo: ${v('address')}, ${v('city')}\nNote: ${v('extra')||'nessuna'}${pp&&PAYPAL?'\n\nPagamento PayPal: '+PAYPAL+'/'+total().toFixed(2):''}`;
+  const subject='Nuovo ordine - '+v('name');
+  const mailto='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  // Apertura più affidabile su mobile e desktop
+  const a=document.createElement('a');
+  a.href=mailto;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  // Messaggio di conferma con indirizzo esplicito
+  let msg='';
+  if(pp){
+    msg+='<p class="note">Hai scelto PayPal (ancora da attivare): dopo l’invio ti scriviamo le istruzioni per pagare.';
+    if(PAYPAL) msg+=' Puoi anche pagare subito qui: <a href="'+PAYPAL+'/'+total().toFixed(2)+'">paga '+euro(total())+' con PayPal</a>.';
+    msg+='</p>';
+  }
+  msg+='<p class="note">Destinatario ordine: <strong>'+EMAIL+'</strong><br>Si è aperta la tua app di posta con l’ordine pronto. Controlla che nel campo “A” compaia l’indirizzo sopra. Se non si apre o manca il destinatario, copia i dati qui sotto e inviali manualmente a <strong>'+EMAIL+'</strong>.</p>';
+  msg+='<textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>';
+  box.innerHTML=msg;
+}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
 </script>
 </body>
