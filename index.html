@@ -47,6 +47,7 @@ section{padding:70px 6%}
 .step{border-top:3px solid var(--sky);padding-top:16px}.step h3{font-size:34px}.step p{color:var(--muted);font-size:15px}
 footer{background:var(--coal);color:#e9e4cc;padding:44px 6%;display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;border-top:3px double var(--butter);font-size:15px}
 footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{margin:4px 0}
+footer a{color:var(--sky);text-decoration:underline}footer a:hover{color:var(--butter)}
 .modal{display:none;position:fixed;inset:0;background:#000a;z-index:9;justify-content:center;align-items:center;padding:14px}.modal.open{display:flex}
 .panel{background:var(--paper);width:min(620px,100%);max-height:92vh;overflow:auto;padding:24px;border-radius:8px;border:3px double var(--coal)}
 .panel-head{display:flex;justify-content:space-between;align-items:center}.panel h2{font-size:38px}.close{border:0;background:none;font-size:30px;cursor:pointer}
@@ -96,12 +97,40 @@ footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{
   <div class="steps"><div class="step"><h3>Scegli</h3><p>Aggiungi al carrello le confezioni che desideri.</p></div><div class="step"><h3>Ordina</h3><p>Compili il modulo e ci invii l’ordine per e-mail.</p></div><div class="step"><h3>Ricevi</h3><p>Ti contattiamo per concordare la consegna. Paghi alla consegna o con PayPal.</p></div></div>
  </section>
 </main>
-<footer><div><b>fazzini pollami</b><p>Uova fresche · Casargo (LC)<br>La freschezza della montagna, ogni giorno.</p></div><div><b>Contatti</b><p>Telefono, WhatsApp ed e-mail<br>da inserire prima della pubblicazione.</p></div><div><b>Informazioni</b><p>Privacy, cookie e termini di vendita<br>da completare prima dell’apertura.</p></div></footer>
+<footer>
+ <div>
+  <b>fazzini pollami</b>
+  <p>Uova fresche · Casargo (LC)<br>
+  Via Roma 33 · 23831 Casargo (LC)<br>
+  La freschezza della montagna, ogni giorno.</p>
+ </div>
+ <div>
+  <b>Contatti</b>
+  <p>
+   E-mail: <span id="mail-show"></span><br>
+   WhatsApp: <a href="#" id="wa-link" onclick="return openWhatsApp(event)">Scrivici</a>
+  </p>
+ </div>
+ <div>
+  <b>Informazioni</b>
+  <p>I tuoi dati vengono usati solo per evadere l’ordine e per contattarti riguardo alla consegna. Nessuna profilazione, nessuna newsletter automatica.</p>
+ </div>
+</footer>
 <div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal (da attivare)</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal (da attivare): con PayPal ti mandiamo le istruzioni per il pagamento. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
 <script>
-// Email obfuscated to reduce scraping / spam
+// Dati obfuscati per ridurre scraping / spam
 const EMAIL = ["Marcofazzini","@","me.com"].join("");
+const WA = ["347","579","2916"].join(""); // WhatsApp
 const PAYPAL = ""; // da attivare
+
+// Mostra email e prepara link WhatsApp senza scrivere il numero in chiaro nell'HTML
+document.getElementById('mail-show').textContent = EMAIL;
+function openWhatsApp(e){
+  e.preventDefault();
+  window.open('https://wa.me/39'+WA+'?text='+encodeURIComponent('Ciao, vorrei informazioni sulle uova fresche'), '_blank');
+  return false;
+}
+
 const products=[{name:"Confezione da 6 uova",eggs:6},{name:"Confezione da 10 uova",eggs:10},{name:"Confezione da 12 uova",eggs:12}];let cart=[0,0,0];
 const euro=n=>n.toFixed(2).replace('.',',')+' €';
 const total=()=>cart.reduce((t,q,i)=>t+q*products[i].eggs*0.5,0);
