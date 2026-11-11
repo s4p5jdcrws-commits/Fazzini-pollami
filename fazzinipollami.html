@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#2b2b2b">
+<title>Fazzini Pollami | Uova fresche</title>
+<link rel="icon" href="logo.png">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Oswald:wght@300;400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+:root{--coal:#2b2b2b;--deep:#202020;--butter:#f3e6a0;--sky:#9fc3cc;--paper:#faf5e4;--kraft:#eee3c3;--muted:#6b685a;--script:'Yellowtail','Brush Script MT',cursive;--cond:'Oswald','Arial Narrow',sans-serif;--serif:'Lora',Georgia,serif}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--coal);font:17px/1.7 var(--serif)}
+a{color:inherit}button,input,select,textarea{font:inherit}
+:focus-visible{outline:3px solid var(--sky);outline-offset:2px}
+h1,h2,h3{font-family:var(--script);font-weight:400;line-height:1.1;margin:0}
+header{position:sticky;top:0;z-index:4;background:var(--coal);color:var(--butter);display:flex;align-items:center;justify-content:space-between;gap:16px;padding:10px 6%;padding-top:calc(10px + env(safe-area-inset-top,0px));border-bottom:3px double var(--butter)}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}.brand img{width:52px;height:52px;border-radius:50%}
+.brand b{font:400 27px var(--script);display:block;line-height:1}.brand small{font:300 12px var(--cond);letter-spacing:.2em;color:var(--sky)}
+nav{display:flex;gap:26px;font:400 15px var(--cond);letter-spacing:.06em}nav a{text-decoration:none;color:var(--butter)}nav a:hover{color:var(--sky)}
+.cartbtn{border:1.5px solid var(--butter);background:none;color:var(--butter);padding:8px 16px;border-radius:30px;cursor:pointer;font:400 15px var(--cond);letter-spacing:.05em}
+.cartbtn span{display:inline-block;min-width:22px;background:var(--butter);color:var(--coal);border-radius:11px;margin-left:6px}
+.hero{background:radial-gradient(circle at 70% 50%,#383838,var(--coal) 65%);color:var(--butter);display:grid;grid-template-columns:1.1fr .9fr;align-items:center;gap:30px;padding:60px 6%;border-bottom:3px double var(--butter)}
+.hero h1{font-size:clamp(46px,7vw,84px);margin-bottom:18px}.hero p{max-width:470px;color:#e9e4cc;font-size:18px}
+.cta{display:inline-block;margin-top:10px;background:var(--butter);color:var(--coal);padding:13px 26px;border-radius:40px;text-decoration:none;font:400 17px var(--cond);letter-spacing:.06em}
+.cta:hover{background:var(--sky)}
+.hero img{width:min(420px,100%);justify-self:center;border-radius:50%;box-shadow:0 0 0 8px var(--coal),0 0 0 10px var(--butter)}
+section{padding:70px 6%}
+.head{text-align:center;max-width:620px;margin:0 auto 38px}.head h2{font-size:clamp(38px,5vw,54px)}.head p{color:var(--muted)}
+.head:after{content:"";display:block;width:90px;height:10px;margin:18px auto 0;border-top:2px dashed var(--sky);border-bottom:2px dashed var(--sky)}
+.products{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1060px;margin:auto}
+.product{background:#fff;border:2px dashed var(--sky);border-radius:6px;padding:26px 22px;text-align:center}
+.egg{width:86px;height:86px;margin:0 auto 12px;border-radius:50%;background:var(--butter);display:grid;place-items:center;font-size:42px;box-shadow:0 0 0 5px var(--paper),0 0 0 7px var(--coal)}
+.product h3{font-size:32px}.product p{color:var(--muted);font-size:15px;min-height:52px;margin:6px 0}.price{font:400 19px var(--cond);letter-spacing:.04em;margin:10px 0 14px}
+.add{width:100%;padding:12px;border:0;border-radius:40px;background:var(--coal);color:var(--butter);cursor:pointer;font:400 16px var(--cond);letter-spacing:.05em}.add:hover{background:#444}
+.flock{background:var(--coal);color:var(--butter)}.flock .head p{color:#d8d3bb}.flock .head:after{border-color:var(--butter)}
+.birds{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:auto}
+.bird{border:2px solid var(--butter);border-radius:200px 200px 8px 8px;padding:34px 24px 28px;text-align:center;background:var(--deep)}
+.face{width:104px;height:104px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;border:3px solid var(--sky);overflow:hidden}
+.face img{width:100%;height:100%;object-fit:cover;display:block}
+.f1{background:#f4f1e8}.f2{background:#fff}.f3{background:#111}
+.bird h3{font-size:34px}.bird small{font:300 13px var(--cond);letter-spacing:.15em;color:var(--sky)}.bird p{font-size:15px;color:#d8d3bb;margin:10px 0 0}
+.story{background:var(--kraft);display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:none}
+.story .bigq{font:clamp(44px,6vw,70px)/1.05 var(--script);color:var(--coal)}.story p{color:#4d4a3d;max-width:520px}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:26px;max-width:980px;margin:auto;text-align:center}
+.step{border-top:3px solid var(--sky);padding-top:16px}.step h3{font-size:34px}.step p{color:var(--muted);font-size:15px}
+footer{background:var(--coal);color:#e9e4cc;padding:44px 6%;display:flex;justify-content:space-between;gap:26px;flex-wrap:wrap;border-top:3px double var(--butter);font-size:15px}
+footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{margin:4px 0}
+.modal{display:none;position:fixed;inset:0;background:#000a;z-index:9;justify-content:center;align-items:center;padding:14px}.modal.open{display:flex}
+.panel{background:var(--paper);width:min(620px,100%);max-height:92vh;overflow:auto;padding:24px;border-radius:8px;border:3px double var(--coal)}
+.panel-head{display:flex;justify-content:space-between;align-items:center}.panel h2{font-size:38px}.close{border:0;background:none;font-size:30px;cursor:pointer}
+.line{display:flex;justify-content:space-between;align-items:center;border-bottom:1px dashed var(--sky);padding:12px 0;font-size:15px}
+.qty button{border:1px solid var(--coal);background:#fff;width:28px;height:28px;border-radius:50%;cursor:pointer}
+.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px}.formgrid input,.formgrid textarea,.formgrid select{width:100%;padding:11px;border:1px solid #cfc8b0;background:#fff;border-radius:4px}
+.formgrid textarea{grid-column:1/-1;min-height:65px}.wide{grid-column:1/-1}
+.checkout{width:100%;padding:14px;background:var(--coal);color:var(--butter);border:0;border-radius:40px;margin-top:16px;cursor:pointer;font:400 17px var(--cond);letter-spacing:.05em}
+.total{display:flex;justify-content:space-between;font:400 20px var(--cond);letter-spacing:.04em;margin-top:14px}.note{font-size:13px;line-height:1.5;color:var(--muted);margin-top:14px}.empty{color:var(--muted);padding:14px 0}
+@media(max-width:780px){nav{display:none}.hero{grid-template-columns:1fr;text-align:center;padding:44px 7%}.hero p{margin:auto}.hero img{order:-1;width:min(280px,80%)}.products,.birds,.steps{grid-template-columns:1fr;max-width:420px}.story{grid-template-columns:1fr;gap:20px}section{padding:52px 6%}.formgrid{grid-template-columns:1fr}.formgrid textarea,.wide{grid-column:auto}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header>
+ <a class="brand" href="#top"><img src="logo.png" alt="Logo Fazzini Pollami"><span><b>fazzini pollami</b><small>UOVA FRESCHE</small></span></a>
+ <nav><a href="#negozio">Il negozio</a><a href="#galline">Le nostre galline</a><a href="#azienda">La nostra storia</a><a href="#consegna">Consegna</a></nav>
+ <button class="cartbtn" onclick="openCart()">Carrello<span id="count">0</span></button>
+</header>
+<main id="top">
+ <div class="hero">
+  <div><h1>La bontà delle cose semplici.</h1><p>Uova fresche di una piccola azienda di Casargo, in Valsassina. Galline livornesi bianche, due galletti moroseta e tanta cura ogni giorno.</p><a class="cta" href="#negozio">Scopri le uova</a></div>
+  <img src="logo.png" alt="Fazzini Pollami, uova fresche">
+ </div>
+ <section id="negozio">
+  <div class="head"><h2>Porta a casa la freschezza</h2><p>Ogni uovo costa 0,50 €. Scegli la confezione che preferisci e paga alla consegna oppure con PayPal.</p></div>
+  <div class="products">
+   <article class="product"><div class="egg">🥚</div><h3>6 uova</h3><p>La confezione giusta per la colazione e la cucina di ogni giorno.</p><div class="price">3,00 €</div><button class="add" onclick="add(0)">Aggiungi al carrello</button></article>
+   <article class="product"><div class="egg">🥚</div><h3>10 uova</h3><p>Una scorta pratica per chi vuole sempre uova fresche in casa.</p><div class="price">5,00 €</div><button class="add" onclick="add(1)">Aggiungi al carrello</button></article>
+   <article class="product"><div class="egg">🥚</div><h3>12 uova</h3><p>Da dividere in famiglia, per tante ricette genuine.</p><div class="price">6,00 €</div><button class="add" onclick="add(2)">Aggiungi al carrello</button></article>
+  </div>
+ </section>
+ <section class="flock" id="galline">
+  <div class="head"><h2>Chi fa le uova</h2><p>Un pollaio piccolo, che conosciamo uno per uno.</p></div>
+  <div class="birds">
+   <div class="bird"><div class="face f1">🐔</div><h3>Livornesi bianche</h3><small>LE GALLINE</small><p>Le nostre ovaiole: vivaci, eleganti, sempre in movimento.</p></div>
+   <div class="bird"><div class="face f2"><img src="moroseta-bianco.jpg" alt="Moroseta bianco"></div><h3>Moroseta bianco</h3><small>IL GALLETTO</small><p>Piccolo di taglia, grande di carattere. Veglia sul pollaio.</p></div>
+   <div class="bird"><div class="face f3"><img src="moroseta-nero.jpg" alt="Moroseta nero"></div><h3>Moroseta nero</h3><small>IL GALLETTO</small><p>Il secondo guardiano: scuro, fiero e sempre in posa.</p></div>
+  </div>
+ </section>
+ <section class="story" id="azienda">
+  <div class="bigq">Il carattere della montagna, la cura di casa.</div>
+  <p>Fazzini Pollami nasce a Casargo, nel cuore della Valsassina. Alleviamo livornesi bianche e due galletti moroseta, uno bianco e uno nero, e vendiamo le nostre uova fresche. Un progetto piccolo, fatto di attenzione e rispetto per il territorio.</p>
+ </section>
+ <section id="consegna">
+  <div class="head"><h2>Ordinare è semplice</h2><p>Ricevi le uova a casa e paga alla consegna oppure con PayPal.</p></div>
+  <div class="steps"><div class="step"><h3>Scegli</h3><p>Aggiungi al carrello le confezioni che desideri.</p></div><div class="step"><h3>Ordina</h3><p>Compili il modulo e ci invii l’ordine per e-mail.</p></div><div class="step"><h3>Ricevi</h3><p>Ti contattiamo per concordare la consegna. Paghi alla consegna o con PayPal.</p></div></div>
+ </section>
+</main>
+<footer><div><b>fazzini pollami</b><p>Uova fresche · Casargo (LC)<br>La freschezza della montagna, ogni giorno.</p></div><div><b>Contatti</b><p>Telefono, WhatsApp ed e-mail<br>da inserire prima della pubblicazione.</p></div><div><b>Informazioni</b><p>Privacy, cookie e termini di vendita<br>da completare prima dell’apertura.</p></div></footer>
+<div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal (da attivare)</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal (da attivare): con PayPal ti mandiamo le istruzioni per il pagamento. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
+<script>
+// Email obfuscated to reduce scraping / spam
+const EMAIL = ["Marcofazzini","@","me.com"].join("");
+const PAYPAL = ""; // da attivare
+const products=[{name:"Confezione da 6 uova",eggs:6},{name:"Confezione da 10 uova",eggs:10},{name:"Confezione da 12 uova",eggs:12}];let cart=[0,0,0];
+const euro=n=>n.toFixed(2).replace('.',',')+' €';
+const total=()=>cart.reduce((t,q,i)=>t+q*products[i].eggs*0.5,0);
+function update(){document.getElementById('count').textContent=cart.reduce((a,b)=>a+b,0)}
+function add(i){cart[i]++;update()}
+function openCart(){document.getElementById('cartModal').classList.add('open');render()}
+function closeCart(){document.getElementById('cartModal').classList.remove('open')}
+function render(){let rows=cart.map((q,i)=>q?`<div class="line"><span>${products[i].name}</span><span class="qty"><button onclick="change(${i},-1)">−</button> ${q} <button onclick="change(${i},1)">+</button></span></div>`:'').join('');document.getElementById('items').innerHTML=rows||'<div class="empty">Il carrello è vuoto. Aggiungi una confezione dal negozio.</div>';document.getElementById('total').innerHTML=total()?`<span>Totale</span><span>${euro(total())}</span>`:''}
+function change(i,n){cart[i]=Math.max(0,cart[i]+n);update();render()}
+function sendOrder(){
+  const v=id=>document.getElementById(id).value.trim();
+  const box=document.getElementById('result');
+  let lines=cart.map((q,i)=>q?`- ${q} x ${products[i].name} (${euro(q*products[i].eggs*0.5)})`:null).filter(Boolean);
+  if(!lines.length){box.innerHTML='<p class="note">Aggiungi almeno una confezione al carrello.</p>';return}
+  if(!v('name')||!v('phone')||!v('address')||!v('city')){box.innerHTML='<p class="note">Compila nome, telefono, indirizzo e comune per poter inviare l’ordine.</p>';return}
+  const pp=v('payment')==='PayPal';
+  const body=`Nuovo ordine dal sito Fazzini Pollami\n\n${lines.join('\n')}\n\nTotale: ${euro(total())}\nPagamento: ${v('payment')==='PayPal'?'PayPal (da attivare — mandare le istruzioni al cliente)':'Alla consegna'}\n\nNome: ${v('name')}\nTelefono: ${v('phone')}\nIndirizzo: ${v('address')}, ${v('city')}\nNote: ${v('extra')||'nessuna'}${pp&&PAYPAL?'\n\nPagamento PayPal: '+PAYPAL+'/'+total().toFixed(2):''}`;
+  const subject='Nuovo ordine - '+v('name');
+  const mailto='mailto:'+EMAIL+'?subject='+encodeURIComponent(subject)+'&body='+encodeURIComponent(body);
+  // Apertura più affidabile su mobile e desktop
+  const a=document.createElement('a');
+  a.href=mailto;
+  a.style.display='none';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  // Messaggio di conferma con indirizzo esplicito
+  let msg='';
+  if(pp){
+    msg+='<p class="note">Hai scelto PayPal (ancora da attivare): dopo l’invio ti scriviamo le istruzioni per pagare.';
+    if(PAYPAL) msg+=' Puoi anche pagare subito qui: <a href="'+PAYPAL+'/'+total().toFixed(2)+'">paga '+euro(total())+' con PayPal</a>.';
+    msg+='</p>';
+  }
+  msg+='<p class="note">Destinatario ordine: <strong>'+EMAIL+'</strong><br>Si è aperta la tua app di posta con l’ordine pronto. Controlla che nel campo “A” compaia l’indirizzo sopra. Se non si apre o manca il destinatario, copia i dati qui sotto e inviali manualmente a <strong>'+EMAIL+'</strong>.</p>';
+  msg+='<textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>';
+  box.innerHTML=msg;
+}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
+</script>
+</body>
+</html>
