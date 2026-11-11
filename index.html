@@ -71,7 +71,7 @@ footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{
   <img src="logo.png" alt="Fazzini Pollami, uova fresche">
  </div>
  <section id="negozio">
-  <div class="head"><h2>Porta a casa la freschezza</h2><p>Ogni uovo costa 0,50 €. Scegli la confezione che preferisci e paghi alla consegna.</p></div>
+  <div class="head"><h2>Porta a casa la freschezza</h2><p>Ogni uovo costa 0,50 €. Scegli la confezione che preferisci e paga alla consegna oppure con PayPal.</p></div>
   <div class="products">
    <article class="product"><div class="egg">🥚</div><h3>6 uova</h3><p>La confezione giusta per la colazione e la cucina di ogni giorno.</p><div class="price">3,00 €</div><button class="add" onclick="add(0)">Aggiungi al carrello</button></article>
    <article class="product"><div class="egg">🥚</div><h3>10 uova</h3><p>Una scorta pratica per chi vuole sempre uova fresche in casa.</p><div class="price">5,00 €</div><button class="add" onclick="add(1)">Aggiungi al carrello</button></article>
@@ -91,14 +91,15 @@ footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{
   <p>Fazzini Pollami nasce a Casargo, nel cuore della Valsassina. Alleviamo livornesi bianche e due galletti moroseta, uno bianco e uno nero, e vendiamo le nostre uova fresche. Un progetto piccolo, fatto di attenzione e rispetto per il territorio.</p>
  </section>
  <section id="consegna">
-  <div class="head"><h2>Ordinare è semplice</h2><p>Ricevi le uova a casa e paghi direttamente alla consegna.</p></div>
-  <div class="steps"><div class="step"><h3>Scegli</h3><p>Aggiungi al carrello le confezioni che desideri.</p></div><div class="step"><h3>Ordina</h3><p>Compili il modulo e ci invii l’ordine per e-mail.</p></div><div class="step"><h3>Ricevi</h3><p>Ti contattiamo per concordare la consegna. Paghi alla consegna.</p></div></div>
+  <div class="head"><h2>Ordinare è semplice</h2><p>Ricevi le uova a casa e paga alla consegna oppure con PayPal.</p></div>
+  <div class="steps"><div class="step"><h3>Scegli</h3><p>Aggiungi al carrello le confezioni che desideri.</p></div><div class="step"><h3>Ordina</h3><p>Compili il modulo e ci invii l’ordine per e-mail.</p></div><div class="step"><h3>Ricevi</h3><p>Ti contattiamo per concordare la consegna. Paghi alla consegna o con PayPal.</p></div></div>
  </section>
 </main>
 <footer><div><b>fazzini pollami</b><p>Uova fresche · Casargo (LC)<br>La freschezza della montagna, ogni giorno.</p></div><div><b>Contatti</b><p>Telefono, WhatsApp ed e-mail<br>da inserire prima della pubblicazione.</p></div><div><b>Informazioni</b><p>Privacy, cookie e termini di vendita<br>da completare prima dell’apertura.</p></div></footer>
-<div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Paghi alla consegna. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
+<div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal: con PayPal ti mandiamo le istruzioni per il pagamento. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
 <script>
 const EMAIL="INSERISCI-QUI-LA-TUA-EMAIL@esempio.it";
+const PAYPAL="";
 const products=[{name:"Confezione da 6 uova",eggs:6},{name:"Confezione da 10 uova",eggs:10},{name:"Confezione da 12 uova",eggs:12}];let cart=[0,0,0];
 const euro=n=>n.toFixed(2).replace('.',',')+' €';
 const total=()=>cart.reduce((t,q,i)=>t+q*products[i].eggs*0.5,0);
@@ -106,15 +107,15 @@ function update(){document.getElementById('count').textContent=cart.reduce((a,b)
 function add(i){cart[i]++;update()}
 function openCart(){document.getElementById('cartModal').classList.add('open');render()}
 function closeCart(){document.getElementById('cartModal').classList.remove('open')}
-function render(){let rows=cart.map((q,i)=>q?`<div class="line"><span>${products[i].name}</span><span class="qty"><button onclick="change(${i},-1)">−</button> ${q} <button onclick="change(${i},1)">+</button></span></div>`:'').join('');document.getElementById('items').innerHTML=rows||'<div class="empty">Il carrello è vuoto. Aggiungi una confezione dal negozio.</div>';document.getElementById('total').innerHTML=total()?`<span>Totale da pagare alla consegna</span><span>${euro(total())}</span>`:''}
+function render(){let rows=cart.map((q,i)=>q?`<div class="line"><span>${products[i].name}</span><span class="qty"><button onclick="change(${i},-1)">−</button> ${q} <button onclick="change(${i},1)">+</button></span></div>`:'').join('');document.getElementById('items').innerHTML=rows||'<div class="empty">Il carrello è vuoto. Aggiungi una confezione dal negozio.</div>';document.getElementById('total').innerHTML=total()?`<span>Totale</span><span>${euro(total())}</span>`:''}
 function change(i,n){cart[i]=Math.max(0,cart[i]+n);update();render()}
 function sendOrder(){const v=id=>document.getElementById(id).value.trim();const box=document.getElementById('result');
 let lines=cart.map((q,i)=>q?`- ${q} x ${products[i].name} (${euro(q*products[i].eggs*0.5)})`:null).filter(Boolean);
 if(!lines.length){box.innerHTML='<p class="note">Aggiungi almeno una confezione al carrello.</p>';return}
 if(!v('name')||!v('phone')||!v('address')||!v('city')){box.innerHTML='<p class="note">Compila nome, telefono, indirizzo e comune per poter inviare l’ordine.</p>';return}
-const body=`Nuovo ordine dal sito Fazzini Pollami\n\n${lines.join('\n')}\n\nTotale da pagare alla consegna: ${euro(total())}\n\nNome: ${v('name')}\nTelefono: ${v('phone')}\nIndirizzo: ${v('address')}, ${v('city')}\nNote: ${v('extra')||'nessuna'}`;
+const pp=v('payment')==='PayPal';const body=`Nuovo ordine dal sito Fazzini Pollami\n\n${lines.join('\n')}\n\nTotale: ${euro(total())}\nPagamento: ${v('payment')==='PayPal'?'PayPal (mandare le istruzioni al cliente)':'Alla consegna'}\n\nNome: ${v('name')}\nTelefono: ${v('phone')}\nIndirizzo: ${v('address')}, ${v('city')}\nNote: ${v('extra')||'nessuna'}${pp&&PAYPAL?'\n\nPagamento PayPal: '+PAYPAL+'/'+total().toFixed(2):''}`;
 location.href=`mailto:${EMAIL}?subject=${encodeURIComponent('Nuovo ordine - '+v('name'))}&body=${encodeURIComponent(body)}`;
-box.innerHTML='<p class="note">Si è aperta la tua app di posta con l’ordine pronto. Se non si apre, scrivici a '+EMAIL+' con questi dati:</p><textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>'}
+box.innerHTML=(pp?'<p class="note">Hai scelto PayPal: dopo l’invio ti scriviamo le istruzioni per pagare.'+(PAYPAL?' Puoi anche pagare subito qui: <a href="'+PAYPAL+'/'+total().toFixed(2)+'">paga '+euro(total())+' con PayPal</a>.':'')+'</p>':'')+'<p class="note">Si è aperta la tua app di posta con l’ordine pronto. Se non si apre, scrivici a '+EMAIL+' con questi dati:</p><textarea style="width:100%;min-height:150px;padding:10px" readonly>'+body.replace(/&/g,'&amp;').replace(/</g,'&lt;')+'</textarea>'}
 document.addEventListener('keydown',e=>{if(e.key==='Escape')closeCart()});
 </script>
 </body>
