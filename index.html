@@ -37,8 +37,9 @@ section{padding:70px 6%}
 .flock{background:var(--coal);color:var(--butter)}.flock .head p{color:#d8d3bb}.flock .head:after{border-color:var(--butter)}
 .birds{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1000px;margin:auto}
 .bird{border:2px solid var(--butter);border-radius:200px 200px 8px 8px;padding:34px 24px 28px;text-align:center;background:var(--deep)}
-.face{width:104px;height:104px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;border:3px solid var(--sky)}
-.f1{background:#f4f1e8}.f2{background:#fff}.f3{background:#111;filter:none}
+.face{width:104px;height:104px;margin:0 auto 14px;border-radius:50%;display:grid;place-items:center;font-size:54px;border:3px solid var(--sky);overflow:hidden}
+.face img{width:100%;height:100%;object-fit:cover;display:block}
+.f1{background:#f4f1e8}.f2{background:#fff}.f3{background:#111}
 .bird h3{font-size:34px}.bird small{font:300 13px var(--cond);letter-spacing:.15em;color:var(--sky)}.bird p{font-size:15px;color:#d8d3bb;margin:10px 0 0}
 .story{background:var(--kraft);display:grid;grid-template-columns:1fr 1fr;gap:50px;align-items:center;max-width:none}
 .story .bigq{font:clamp(44px,6vw,70px)/1.05 var(--script);color:var(--coal)}.story p{color:#4d4a3d;max-width:520px}
@@ -82,8 +83,8 @@ footer b{font:400 26px var(--script);color:var(--butter);display:block}footer p{
   <div class="head"><h2>Chi fa le uova</h2><p>Un pollaio piccolo, che conosciamo uno per uno.</p></div>
   <div class="birds">
    <div class="bird"><div class="face f1">🐔</div><h3>Livornesi bianche</h3><small>LE GALLINE</small><p>Le nostre ovaiole: vivaci, eleganti, sempre in movimento.</p></div>
-   <div class="bird"><div class="face f2">🐓</div><h3>Moroseta bianco</h3><small>IL GALLETTO</small><p>Piccolo di taglia, grande di carattere. Veglia sul pollaio.</p></div>
-   <div class="bird"><div class="face f3">🐓</div><h3>Moroseta nero</h3><small>IL GALLETTO</small><p>Il secondo guardiano: scuro, fiero e sempre in posa.</p></div>
+   <div class="bird"><div class="face f2"><img src="moroseta-bianco.jpg" alt="Moroseta bianco"></div><h3>Moroseta bianco</h3><small>IL GALLETTO</small><p>Piccolo di taglia, grande di carattere. Veglia sul pollaio.</p></div>
+   <div class="bird"><div class="face f3"><img src="moroseta-nero.jpg" alt="Moroseta nero"></div><h3>Moroseta nero</h3><small>IL GALLETTO</small><p>Il secondo guardiano: scuro, fiero e sempre in posa.</p></div>
   </div>
  </section>
  <section class="story" id="azienda">
