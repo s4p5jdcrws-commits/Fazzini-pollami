@@ -7,10 +7,14 @@
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Fazzini Pollami">
+<meta name="application-name" content="Fazzini Pollami">
 <title>Fazzini Pollami | Uova fresche</title>
 <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
 <link rel="icon" type="image/png" sizes="192x192" href="icon-192.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="apple-touch-icon" sizes="167x167" href="apple-touch-icon-167.png">
+<link rel="apple-touch-icon" sizes="152x152" href="apple-touch-icon-152.png">
+<link rel="apple-touch-icon" sizes="120x120" href="apple-touch-icon-120.png">
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Yellowtail&family=Oswald:wght@300;400&family=Lora:ital,wght@0,400;0,600;1,400&display=swap" rel="stylesheet">
 <style>
@@ -111,9 +115,8 @@ footer a{color:var(--sky);text-decoration:underline}footer a:hover{color:var(--b
  </div>
  <div>
   <b>Contatti</b>
-  <p>
-   E-mail: <span id="mail-show"></span><br>
-   WhatsApp: <a href="#" id="wa-link" onclick="return openWhatsApp(event)">Scrivici</a>
+  <p id="contact-box">
+   <a href="#" onclick="return revealContacts(event)" style="color:var(--sky);text-decoration:underline">Mostra email e WhatsApp</a>
   </p>
  </div>
  <div>
@@ -124,12 +127,18 @@ footer a{color:var(--sky);text-decoration:underline}footer a:hover{color:var(--b
 <div class="modal" id="cartModal"><div class="panel"><div class="panel-head"><h2>Il tuo carrello</h2><button class="close" onclick="closeCart()" aria-label="Chiudi">×</button></div><div id="items"></div><div class="formgrid"><input id="name" placeholder="Nome e cognome"><input id="phone" placeholder="Telefono"><input id="address" class="wide" placeholder="Indirizzo di consegna"><input id="city" class="wide" placeholder="Comune"><select id="payment" class="wide" aria-label="Metodo di pagamento"><option value="Alla consegna">Pagamento alla consegna</option><option value="PayPal">Pagamento con PayPal (da attivare)</option></select><textarea id="extra" placeholder="Note per la consegna (facoltativo)"></textarea></div><div class="total" id="total"></div><button class="checkout" onclick="sendOrder()">Invia l’ordine per e-mail</button><div class="note">Puoi pagare alla consegna oppure con PayPal (da attivare): con PayPal ti mandiamo le istruzioni per il pagamento. Premendo il pulsante si apre la tua app di posta con l’ordine già scritto: ti basta premere Invia.</div><div id="result"></div></div></div>
 <script>
 // Dati obfuscati per ridurre scraping / spam
-const EMAIL = ["Marcofazzini","@","me.com"].join("");
-const WA = ["347","579","2916"].join(""); // WhatsApp
+const EMAIL = ["Marco","fazzini","@","me.com"].join("");
+const WA = ["3","47","57","92","916"].join(""); // WhatsApp
 const PAYPAL = ""; // da attivare
 
-// Mostra email e prepara link WhatsApp senza scrivere il numero in chiaro nell'HTML
-document.getElementById('mail-show').textContent = EMAIL;
+function revealContacts(e){
+  e.preventDefault();
+  const box = document.getElementById('contact-box');
+  box.innerHTML = 
+    'E-mail: <a href="mailto:'+EMAIL+'">'+EMAIL+'</a><br>' +
+    'WhatsApp: <a href="#" onclick="return openWhatsApp(event)">'+WA.replace(/(\d{3})(\d{3})(\d{4})/,'$1 $2 $3')+'</a>';
+  return false;
+}
 function openWhatsApp(e){
   e.preventDefault();
   window.open('https://wa.me/39'+WA+'?text='+encodeURIComponent('Ciao, vorrei informazioni sulle uova fresche'), '_blank');
